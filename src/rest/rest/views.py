@@ -14,14 +14,17 @@ todos_collection = db["todos"]
 class TodoListView(APIView):
 
     def get(self, request):
-        todos = []
-        for todo in todos_collection.find():
-            todos.append({
-                "id": str(todo["_id"]),   # IMPORTANT
-                "text": todo.get("text", "")
-            })
-
-        return Response(todos, status=status.HTTP_200_OK)
+        try:
+            todos = [
+                {"id": str(todo["_id"]), "text": todo.get("text", "")}
+                for todo in todos_collection.find()
+            ]
+            return Response(todos, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(
+                {"error": "Failed to fetch todos"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
     def post(self, request):
         data = request.data

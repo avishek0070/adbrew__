@@ -1,20 +1,6 @@
-# IDE
-.idea/
-
-# Python
-__pycache__/
-*.pyc
-
-# Node
-node_modules/
-*.log
-.eslintcache
-package-lock.json
-
-# Mongo / DB
+.env
 db/
-src/rest/mydatabase/
-
-# OS
-.DS_Store
+mydatabase
+*.sqlite3
+__pycache__/
 
